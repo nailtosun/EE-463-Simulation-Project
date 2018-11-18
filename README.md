@@ -6,7 +6,7 @@ Finished.
 ## Question 2 
 ### Products
 #### Diodes
-Digi-key Part number : [1655-1003-ND](https://www.digikey.com/product-detail/en/smc-diode-solutions/12TQ200/1655-1003-ND/6022093)
+Digi-key Part number : [497-15246-5-ND](https://www.digikey.com/product-detail/en/smc-diode-solutions/12TQ200/1655-1003-ND/6022093)
 #### Capacitors
 Digi-key Part number : [1189-3928-ND](https://www.digikey.com/product-detail/en/rubycon/400USG680MEFC35X40/400USG680MEFC35X40-ND/6184452)
 
