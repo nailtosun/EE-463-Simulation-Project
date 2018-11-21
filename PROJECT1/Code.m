@@ -44,15 +44,15 @@ title('Output Voltage of the Single Phase Rectifier with Load with 25 Ohm + 0.01
 legend('Output Voltage of the Single Phase Rectifier','Average Voltage at the Output of the Rectifier');
 
 %2c
-T6=vout6.Time;
-Vv6=vout6.Data;
-Tav6=av6.Time;
-Vav6=av6.Data;
+T7=vout6.Time;
+Vv7=vout6.Data;
+Tav7=av6.Time;
+Vav7=av6.Data;
 I6=i6.Data;
 Ti6=i6.Time;
 
 figure;
-plot(T6,Vv6,Tav6,Vav6);
+plot(T7,Vv7,Tav7,Vav7);
 xlabel('Time[second]');
 ylabel('Voltage [Volt]');
 title('Output Voltage of the Single Phase Rectifier with Load with 25 Ohm + 1 H');
@@ -78,6 +78,113 @@ used.
 https://www.digikey.com/product-detail/en/comchip-technology/GBU2510-G/641-1374-5-ND/2074839
 
 %}
+
+
+%2.3 R=100 Ohm C= 356.3uF
+
+T8=vout7.Time;
+Vv8=vout7.Data;
+Tav8=av7.Time;
+Vav8=av7.Data;
+
+
+figure;
+plot(T8,Vv8,Tav8,Vav8);
+xlabel('Time[second]');
+ylabel('Voltage [Volt]');
+title('Output Voltage of the Single Phase Rectifier with Load with 100 Ohm and Capacitor with 356.3 uF');
+legend('Output Voltage of the Single Phase Rectifier','Average Voltage at the Output of the Rectifier');
+
+
+
+%{
+
+    Aluminum Electrolytic Capacitor which has "565-4473-ND" Digikey number
+    can be used. It has slightly more than calculated capacitance, 390uF
+    and can withstand up to 400V, which is more than line-neutral voltage
+    of our system as precaution. Also it has 20% tolerance which is pretty
+    high.
+
+
+https://www.digikey.com/product-detail/en/united-chemi-con/ESMR401VSN391MR30S/565-4473-ND/5824676
+
+%}
+
+%2.4 R=25 Ohm L=1H Ls= 10mH
+
+T8=vout8.Time;
+Vv8=vout8.Data;
+Tav8=av8.Time;
+Vav8=av8.Data;
+
+
+figure;
+plot(T8,Vv8,Tav8,Vav8);
+xlabel('Time[second]');
+ylabel('Voltage [Volt]');
+title('Output Voltage of the Single Phase Rectifier with Load with 25 Ohm L=1 H Ls= 10mH');
+legend('Output Voltage of the Single Phase Rectifier','Average Voltage at the Output of the Rectifier');
+
+
+%2.5 R=25 Ohm L1=600uH L2= 600uH
+
+figure;
+Tpc=Vpcc.Time;
+Vpc=Vpcc.Data;
+plot(Tpc,Vpc);
+xlabel('Time[second]');
+ylabel('Voltage [Volt]');
+title('Pcc Voltage');
+legend('Pcc Voltage');
+
+% QUESTION 3
+
+%3.1
+
+Tvout=Vout.Time;
+Vvout=Vout.Data;
+Tiarms2=Ia.Time;
+Iiarms2=Ia.Data;
+Tinrms2=In.Time;
+Iinrms2=In.Data;
+
+figure;
+plot(Tvout,Vvout,Tiarms2,Iiarms2,Tinrms2,Iinrms2);
+xlabel('Time[second]');
+ylabel('Voltage [Volt] and Current[A]');
+title('3 ph Diode Rectifier');
+legend('Output Voltage','Current of Phase A','Current of Neutral Line');
+
+%3.2
+
+Tiarms2=Iarms.Time;
+Iiarms2=Iarms.Data;
+Tinrms2=Inrms.Time;
+Iinrms2=Inrms.Data;
+
+figure;
+plot(Tiarms2,Iiarms2,Tinrms2,Iinrms2);
+xlabel('Time[second]');
+ylabel('RMS Current[A]');
+title('3 ph Diode Rectifier');
+legend('RMS Current of Phase A','RMS Current of Neutral Line');
+ylim([0,20]);
+xlim([9.83,9.85])
+
+%3.3
+
+Tiarms2=Iarms2.Time;
+Iiarms2=Iarms2.Data;
+Tinrms2=Inrms2.Time;
+Iinrms2=Inrms2.Data;
+
+figure;
+plot(Tiarms2,Iiarms2,Tinrms2,Iinrms2);
+xlabel('Time[second]');
+ylabel('RMS Current[A]');
+title('3 ph Diode Rectifier without Ls');
+legend('RMS Current of Phase A','RMS Current of Neutral Line');
+ylim([0,20]);
 
 
 
