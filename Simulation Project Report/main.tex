@@ -44,4 +44,21 @@ We observed that, with large step size we lose some transients (especially at 1.
 \subsection*{Part 2}
 We choose MUR1540G with 15 A average current capability and 400 V peak repetitive reverse voltage. We make worst scenario for maximum current and peak reverse voltage. 
 When line inductance 1H and R=25ohm. The maximum current 
+
+\section*{Question 3}
+In this part we have simulated three-phase diode bridge rectifier and observed power factor, THD of output current and waveforms of neutral, phase current and output voltage.
+\subsection{PART 1}
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{A3_1.png}
+  \caption{Phase, neutral current and output voltage waveforms}
+  \label{fig:simulink3}
+\end{figure}
+
+\subsection{PART 2}
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{A3_3.png}
+  \caption{RMS values of phase and neutral line currents}
+  \label{fig:simulink3}
+\end{figure}
+In three-phase rectifiers each phase becomes dominant only 120 degree in each period. Since neutral line which transmits sum of the all phase currents, frequency of the neutral line current becomes three times of the grid frequency which is 50 Hz. The reason which makes neutral line current bigger than phase current is phase current's becoming 0 for 120 degree while neutral current is never 0.
 \end{document}
