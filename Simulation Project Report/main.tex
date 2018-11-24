@@ -1,4 +1,4 @@
-\documentclass[fleqn, a4paper]{article}
+\documentclass[fleqn, a4paper]{report}
 \usepackage[top=1.5in,bottom=1.5in,left=1.15in,right=1.15in]{geometry}
 \usepackage{graphicx}
 \usepackage{tikz}
@@ -28,8 +28,20 @@
 
 \begin{document}
 
+
 \maketitle
 
+\section*{Introduction}
+In this simulation project, we investigated single phase and three phase diode rectifier topologies. The effects of different sample time on Simulink discussed Q1. The effects of load configurations on output voltage waveform, average voltage and THD of line current proposed first part of Q2. Selection of diode and rectifier module be explained part 2. Selection of proper dc bus capacitor with given performance requirement explained part 3. The effect of line inductance on output voltage waveform, source current is discussed part 4. At final part of Q2 we draw voltage waveform at PCC and saw the effect of nonlinear load. 
+\section*{Abbreviations}
+\begin{table}[H]
+\begin{tabular}{ll}
+\textbf{THD} & Total Harmonic Distortion \\
+\textbf{Qx}  & x'th question \\
+\textbf{PCC} & Point of Common Coupling \\
+\textbf{l-l} & Line to Line 
+\end{tabular}
+\end{table}
 \section*{Question 1}
 In this question we investigated the effects of different discrete step sizes on simulation in Simulink environment. Firstly we built single phase diode rectifier which connected through Turkish electrical grid ($400 V_{l-l}$ ). We connected 3 470 $\mu$F capacitors to make output voltage smoother and this will not have any effect on the resolution of waveforms. 
 \begin{figure}[H]
@@ -79,24 +91,26 @@ R = 25 ohm L = 1 H    & \% 48.22
 \caption{THD with different load configurations}
 \end{table} 
 
-With only resistive load line current is sinusoidal therefore THD is very low. With increasing L load behave like current source therefore line current waveform starts to disrupt. At high inductance like 1 H the inductor behave like \textbf{ideal current source} and the line current become square wave (THD becomes \% 48). 
+With only resistive load line current is sinusoidal therefore THD is very low. With increasing L load behave like current source therefore line current waveform starts to disrupt. At high inductance like 1 H the inductor behave like \textbf{ideal current source} and the line current become square wave (THD becomes \% 48).  If inductance goes to infinity, it acts as ideal current source.
 
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{Q2_1.png}
-  \caption{Output Voltage Waveforms and Average Voltages}
+  \includegraphics[width=\linewidth]{output_waveforms21.png}
+  \caption{Output Voltage Waveforms under different load configurations}
   \label{fig:simulink2}
 \end{figure}
 
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+Load configurations    & Average Output Voltage \\
+R = 25 ohm            & 204.9 V                \\
+R = 25 ohm L  = 10 mH & 204.9 V                \\
+R = 25 ohm L = 1 H    & 204.9 V               
+\end{tabular}
+\end{table}
 
-
-\begin{figure}[H]
-  \includegraphics[width=\linewidth]{Q2_2.png}
-  \caption{Output Current Waveforms}
-  \label{fig:simulink2}
-\end{figure}
-
-As can be seen in Figure 5, when commutation ignored neither voltage waveforms nor average voltage changed when inductance has been increased. But when inductance of the load increases, despite of how quick voltage changes, current can not accompany at the same rate, and becomes smoother. If inductance goes to infinity, it acts as ideal curent source.
+As can be seen in Figure 5, when commutation ignored neither voltage waveforms nor average voltage changed when inductance has been increased. But when inductance of the load increases, despite of how quick voltage changes, current can not accompany at the same rate, and becomes smoother.
 
 \subsection*{Part 2}
 We choose MUR1540G with 15 A average current capability and 400 V peak repetitive reverse voltage. We make worst scenario for maximum current and peak reverse voltage. 
@@ -193,10 +207,10 @@ At this part we observed the effect of line inductance at the source side. Since
 \end{figure}
 \subsection*{Part 5}
 
-In this section, we have observed how voltage is seen from another equipment at the point of common coupling. Since current drawn by rectifier diodes undergo a distortion, that distortion concludes with a distortion in voltage waveform.As can be seen in Figure 11, Voltage waveform of source and voltage waveform of point of common coupling has slight difference due to distortion. When no loss assumed in the circuit the area between these two voltage waveforms before and after cross point are equal to each other.
+In this section, we have observed how voltage is seen from another equipment at the point of common coupling. Since current drawn by rectifier diodes undergo a distortion due to the nonlinear load (in this case diode rectifier), that distortion concludes with a distortion in voltage waveform.As can be seen in Figure 10, voltage waveform of source and voltage waveform of point of common coupling has slight difference due to distortion. 
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{Q2_5.png}
+  \includegraphics[width=\linewidth]{part25.png}
   \caption{Voltage Waveforms of Source, Point of Common Coupling and Load}
   \label{fig:simulink3}
 \end{figure}
@@ -204,18 +218,43 @@ In this section, we have observed how voltage is seen from another equipment at 
 
 \section*{Question 3}
 In this part we have simulated three-phase diode bridge rectifier and observed power factor, THD of output current and waveforms of neutral, phase current and output voltage.
-\subsection{PART 1}
+\subsection*{Part 1}
+\begin{figure}[H]%
+    \centering
+    \subfloat[R=25 ohm]{{\includegraphics[width=7cm]{thd2.png}}}%
+    \qquad
+    \subfloat[R=25 ohm L = 10 mH]{{\includegraphics[width=7cm]{thd1.png} }}%
+    \caption{FFT analysis with line inductance (left) and without line inductance (right)}%
+    \label{fig:example}%
+\end{figure}
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{A3_1.png}
-  \caption{Phase, neutral current and output voltage waveforms}
+  \includegraphics[width=\linewidth]{currents31.png}
+  \caption{Phase and Neutral line currents}
   \label{fig:simulink3}
 \end{figure}
 
-\subsection{PART 2}
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{A3_3.png}
-  \caption{RMS values of phase and neutral line currents}
+  \includegraphics[width=\linewidth]{outputvoltage31.png}
+  \caption{Load voltage at steady state}
   \label{fig:simulink3}
 \end{figure}
+\subsection*{Part 2}
+
 In three-phase rectifiers each phase becomes dominant only 120 degree in each period. Since neutral line which transmits sum of the all phase currents, frequency of the neutral line current becomes three times of the grid frequency which is 50 Hz. The reason which makes neutral line current bigger than phase current is phase current's becoming 0 for 120 degree while neutral current is never 0.
+\subsection*{Part 3}
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{outputvoltage33.png}
+  \caption{The effect of line inductance on output voltage}
+  \label{fig:simulink3}
+\end{figure}
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{neutralcurrent33.png}
+  \caption{The effect of line inductance on neutral wire current}
+  \label{fig:simulink3}
+\end{figure}
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{phase_currents33.png}
+  \caption{The effect of line inductance on phase A current}
+  \label{fig:simulink3}
+\end{figure}
 \end{document}
