@@ -10,6 +10,13 @@
 \usepackage{subfig}
 \pgfplotsset{compat=1.15}
 \usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
 
 \title{EE463 Static Power Conversion I 
 -Simulation Project I}
@@ -24,7 +31,7 @@
 \maketitle
 
 \section*{Question 1}
-In this question we investigated the effects of different discrete step sizes on simulation in Simulink environment. Firstly we built single phase diode rectifier which connected through Turkish electrical grid ($400 V_{l-l}$ ). We connect 3 470 $\mu$F capacitors to make output voltage smoother. 
+In this question we investigated the effects of different discrete step sizes on simulation in Simulink environment. Firstly we built single phase diode rectifier which connected through Turkish electrical grid ($400 V_{l-l}$ ). We connected 3 470 $\mu$F capacitors to make output voltage smoother and this will not have any effect on the resolution of waveforms. 
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{question-1-simulink-model.PNG}
   \caption{Simulink model of single phase diode rectifier}
@@ -40,7 +47,7 @@ In this question we investigated the effects of different discrete step sizes on
   \caption{Closer look for 1usec and 10usec to see transients}
   \label{fig:simulink2}
 \end{figure}
-We observed that, with large step size we lose some transients (especially at 1.5ms) but simulation time reduce since it is computationally inexpensive. With 50 Hz input signal there is no such difference between 1 $\mu$sec and 10 $\mu$sec however 1 $\mu$sec has 10 times more computational work. Therefore an engineer should do trade-off between resolution and computation time according his or her requirements.  
+We observed that, with large step size we lose some transients (especially at 1.5ms) but simulation time reduce since it is computationally inexpensive. With 50 Hz input signal there is no such difference between 1 $\mu$sec and 10 $\mu$sec however 1 $\mu$sec has 10 times more computational work. Therefore an engineer should do trade-off between resolution and computation time according to his or her requirements.  
 \section*{Question 2}
 We built single phase rectifier in Simulink environment, using full-wave topology. 
 \subsection*{Part 1}
@@ -69,11 +76,47 @@ R = 25 ohm            & \% 0.34  \\
 R = 25 ohm L  = 10 mH & \% 3.5   \\
 R = 25 ohm L = 1 H    & \% 48.22
 \end{tabular}
-\caption{THD with different load configrations}
+\caption{THD with different load configurations}
 \end{table} 
 
 With only resistive load line current is sinusoidal therefore THD is very low. With increasing L load behave like current source therefore line current waveform starts to disrupt. At high inductance like 1 H the inductor behave like \textbf{ideal current source} and the line current become square wave (THD becomes \% 48). 
 \subsection*{Part 2}
+We choose MUR1540G with 15 A average current capability and 400 V peak repetitive reverse voltage. We make worst scenario for maximum current and peak reverse voltage. 
+When load is 25 Ohm and 25 Ohm 1mH, maximum current emerges as 9.147 Amperes and our single diodes ara capable of 15 Amperes, so in terms of current capacity, selected diode will be more than enough. Also they have 1.25 V voltage drop when delivering 15A at the output. In this conditions, voltage drop on 2 conducting diodes will maximum be arround 2 Volts which is less than 1% of the input voltage. For 50 Hz grid, diodes have 10ms to revocer themselves and 60 ns which is time required MUR1540GOS-ND to recover itself is pretty good number. 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+
+Reverse Voltage                   & 400 V               \\
+Current Average Reectified        & 15 A                \\
+Voltage Forward                   & 1.25 V @ 15A        \\
+Reverse Recovery Time             & 60 ns       	\\
+Current Reverse Leakage           & 10 $\mu$A  @ 400V         
+\end{tabular}
+\caption{Electrical parameters of MUR1540GOS-ND}
+\end{table}
+Related link of the product is given below.
+
+\url {https://www.digikey.com/product-detail/en/on-semiconductor/MUR1540G/MUR1540GOS-ND/919901}
+
+As a rectifier module, we have decided upon using GBU1510TB which has 1655-1846-ND Digikey number. This module can withstand to 1100 V which is pretty much than single diode. Both have same current capacity but diode module has slightly less voltage drop under rated amper. Also it can be cheap as 0.4 US Dollars. When we compare single diode with diode rectifier module, we can easily see that, while rectifier module has better capabilities, it is much more cheaper than the four piece single diode module. Using rectifier module is more economical.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+
+Reverse Voltage                   & 1100 V               \\
+Current Average Reectified        & 15 A                \\
+Voltage Forward                   & 1.1 V @ 15A        \\
+Current Reverse Leakage           & 5 $\mu$A  @ 1000V         
+\end{tabular}
+\caption{Electrical parameters of 1655-1846-ND}
+\end{table}
+Related link of the product is given below.
+
+\url {https://www.digikey.com/product-detail/en/smc-diode-solutions/GBU1510TB/1655-1846-ND/7244874}
+
 \subsection*{Part 3}
 We added $560 \mu F $ electrolytic capacitor (565-2780-ND) decrease output voltage ripple. Some electrical parameters are given as table 1:
 \begin{table}[H]
@@ -86,8 +129,13 @@ Capacitance           & 560 uF                 \\
 Life-Time             & 2000 Hrs @ 85°C        \\
 Ripple Current        & 2.69A @ 120Hz         
 \end{tabular}
-\caption{Electrical parameters of 565-2780-ND)}
+\caption{Electrical parameters of 565-2780-ND}
+
 \end{table}
+Related link of the product is given below.
+
+\url{https://www.digikey.com/product-detail/en/united-chemi-con/ESMQ401VSN561MR45S/565-2780-ND/757993}
+
 We choose $560 \mu F $ electrolytic capacitors since aluminum electrolytic capacitors have high tolerance. Although $470 \mu F $ capacitors meet out performance requirements we think worst case scenario (-\%20 ) as well. Our output waveforms are;
 \begin{figure}[H]
   \includegraphics[width=\linewidth]{RC_load.png}
@@ -126,8 +174,7 @@ At this part we observed the effect of line inductance at the source side. Since
   \label{fig:simulink3}
 \end{figure}
 \subsection*{Part 5}
-We choose MUR1540G with 15 A average current capability and 400 V peak repetitive reverse voltage. We make worst scenario for maximum current and peak reverse voltage. 
-When line inductance 1H and R=25ohm. The maximum current 
+
 
 \section*{Question 3}
 In this part we have simulated three-phase diode bridge rectifier and observed power factor, THD of output current and waveforms of neutral, phase current and output voltage.
