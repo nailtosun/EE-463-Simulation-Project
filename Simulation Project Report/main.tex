@@ -33,13 +33,16 @@
 
 \section*{Introduction}
 In this simulation project, we investigated single phase and three phase diode rectifier topologies. The effects of different sample time on Simulink discussed Q1. The effects of load configurations on output voltage waveform, average voltage and THD of line current proposed first part of Q2. Selection of diode and rectifier module be explained part 2. Selection of proper dc bus capacitor with given performance requirement explained part 3. The effect of line inductance on output voltage waveform, source current is discussed part 4. At final part of Q2 we draw voltage waveform at PCC and saw the effect of nonlinear load. 
+At Q3 we analyze the given system by looking THD and waveform of input current, obtaining output voltage and neutral wire current. At part 2 we obtain RMS values of line and neutral currents. Finally, we compare these cases with no line inductance and commented on their differences. 
 \section*{Abbreviations}
 \begin{table}[H]
 \begin{tabular}{ll}
 \textbf{THD} & Total Harmonic Distortion \\
 \textbf{Qx}  & x'th question \\
 \textbf{PCC} & Point of Common Coupling \\
-\textbf{l-l} & Line to Line 
+\textbf{l-l} & Line to Line \\
+\textbf{pf} & Power Factor \\
+\textbf{RMS} & Root Mean Square
 \end{tabular}
 \end{table}
 \section*{Question 1}
@@ -217,19 +220,30 @@ In this section, we have observed how voltage is seen from another equipment at 
 
 
 \section*{Question 3}
-In this part we have simulated three-phase diode bridge rectifier and observed power factor, THD of output current and waveforms of neutral, phase current and output voltage.
+In this part we have simulated three-phase diode bridge rectifier and observed power factor, THD of output current and waveforms of neutral, phase current and output voltage. We used m file[1] to find power factor in MATLAB environment;
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{q3_simulink_image.PNG}
+  \caption{The effect of line inductance on phase A current}
+  \label{fig:simulink3}
+\end{figure}
 \subsection*{Part 1}
-\begin{figure}[H]%
-    \centering
-    \subfloat[R=25 ohm]{{\includegraphics[width=7cm]{thd2.png}}}%
-    \qquad
-    \subfloat[R=25 ohm L = 10 mH]{{\includegraphics[width=7cm]{thd1.png} }}%
-    \caption{FFT analysis with line inductance (left) and without line inductance (right)}%
-    \label{fig:example}%
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\textbf{}                    & $L_s$ = 0.6 mH \\
+\textbf{THD of line current} & \% 165.48      \\
+\textbf{pf}                  & 0.99          
+\end{tabular}
+\end{table}
+\begin{figure}[H]
+\centering
+  \includegraphics[width=10 cm]{phase_a_thd_line_inductance.png}
+  \caption{Phase and Neutral line currents}
+  \label{fig:simulink3}
 \end{figure}
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{currents31.png}
-  \caption{Phase and Neutral line currents}
+  \includegraphics[width=\linewidth]{phase_a_and_neutral_current.png}
+  \caption{Phase (left) and Neutral (right) line currents}
   \label{fig:simulink3}
 \end{figure}
 
@@ -241,20 +255,66 @@ In this part we have simulated three-phase diode bridge rectifier and observed p
 \subsection*{Part 2}
 
 In three-phase rectifiers each phase becomes dominant only 120 degree in each period. Since neutral line which transmits sum of the all phase currents, frequency of the neutral line current becomes three times of the grid frequency which is 50 Hz. The reason which makes neutral line current bigger than phase current is phase current's becoming 0 for 120 degree while neutral current is never 0.
+$$I_{neutral}(t)=I_1(t)+I_2(t)+I_3(t)$$
+$$I_{neutral}(t)=I_mcos(\omega t)+I_m(\omega t +\frac{2\pi}{3})+I_3cos(\omega t + \frac{4\pi}{3})$$
+Since all square of $I_1(t)$,$I_2(t)$,$I_3(t)$ over one period is equal;
+
+$$I_{neutral_{RMS}}= \sqrt{I_1_{RMS}^2+I_1_{RMS}^2+I_1_{RMS}^2}$$
+$$I_{neutral_{RMS}}=\sqrt{3}I_1_{RMS}$$
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\textbf{Current type} & \textbf{RMS current} \\
+Line current          & 4.71 A              \\
+Neutral current       & 8.04 A              
+\end{tabular}
+\end{table}
 \subsection*{Part 3}
+At part 3, we simulated part 2 and part 1 again without $L_s$. Our 
+\begin{itemize}
+  \item Phase A line and neutral wire currents become more spiky since there is no inductance to force the stop sudden current changes. Therefore THD of line current increased without line inductance. 
+  \item RMS of phase a line current and neutral wire current increased due to absence of line inductance.
+  \item Output voltage value decreased with no line inductance. 
+  \item Power factor decreased slightly since previous case there is an inductance for compensating RC load. Absense of that inductance decreased pf. 
+\end{itemize}
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\textbf{}                    & $L_s$ = 0.6 mH & $L_s = 0 H$ \\
+\textbf{THD of line current} & \% 165.48               & \% 190.16            \\
+\textbf{pf}                  & 0.99                    & 0.97                 \\
+\textbf{Line current RMS}    & 4.71 A                  & 5.15 A               \\
+\textbf{Neutral current RMS} & 8.04 A                  & 8.14 A              
+\end{tabular}
+\end{table}
+
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{outputvoltage33.png}
+  \includegraphics[width=\linewidth]{output_voltage_waveforms_both.png}
   \caption{The effect of line inductance on output voltage}
   \label{fig:simulink3}
 \end{figure}
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{neutralcurrent33.png}
+  \includegraphics[width=\linewidth]{neutral_current_waveform-both.png}
   \caption{The effect of line inductance on neutral wire current}
   \label{fig:simulink3}
 \end{figure}
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{phase_currents33.png}
+  \includegraphics[width=\linewidth]{phase_a_waveform_both.png}
   \caption{The effect of line inductance on phase A current}
   \label{fig:simulink3}
 \end{figure}
+
+
+
+\begin{figure}[H]%
+    \centering
+    \subfloat[$L_s = 0.6 H$]{{\includegraphics[width=7cm]{phase_a_thd_line_inductance.png}}}%
+    \qquad
+    \subfloat[$L_s = 0 H$]{{\includegraphics[width=7cm]{phase_a_thd_no_line_inductance.png} }}%
+    \caption{FFT analysis with line inductance (left) and without line inductance (right)}%
+    \label{fig:example}%
+\end{figure}
+
+\subsection*{References}
+[1] https://www.mathworks.com/matlabcentral/fileexchange/48025-phase-difference-measurement-with-matlab-implementation
 \end{document}
